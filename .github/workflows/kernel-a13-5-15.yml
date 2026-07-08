@@ -91,12 +91,12 @@ on:
         type: boolean
         default: false
       zram_full_algo:
-        description: "启用 ZRAM 完整算法支持（6.12 自动跳过 legacy LZ4K/LZ4KD/LZ4K_OPLUS）"
+        description: "启用 ZRAM 完整算法支持"
         required: false
         type: boolean
         default: false
       zram_extra_algos:
-        description: "自定义 ZRAM 算法（逗号分隔，如 lzo,lz4,deflate,zstd；6.12 会忽略 lz4k/lz4kd/lz4k_oplus）"
+        description: "自定义 ZRAM 算法（逗号分隔）"
         required: false
         type: string
         default: ""
@@ -111,7 +111,7 @@ on:
         type: boolean
         default: false
       custom_external_modules:
-        description: "自定义外部模块（兼容旧 repo;stage，也支持 module:repo;stage 与 set:repo#child;stage，用 | 分隔）"
+        description: "自定义外部模块"
         required: false
         type: string
         default: ""
@@ -197,46 +197,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - sub_level: "74"
-            os_patch_level: "2023-01"
-          - sub_level: "78"
-            os_patch_level: "2023-03"
-          - sub_level: "94"
-            os_patch_level: "2023-05"
-          - sub_level: "104"
-            os_patch_level: "2023-07"
-          - sub_level: "119"
-            os_patch_level: "2023-09"
           - sub_level: "123"
             os_patch_level: "2023-11"
-          - sub_level: "137"
-            os_patch_level: "2024-01"
-          - sub_level: "144"
-            os_patch_level: "2024-03"
-          - sub_level: "148"
-            os_patch_level: "2024-05"
-          - sub_level: "149"
-            os_patch_level: "2024-07"
-          - sub_level: "151"
-            os_patch_level: "2024-08"
-          - sub_level: "153"
-            os_patch_level: "2024-09"
-          - sub_level: "167"
-            os_patch_level: "2024-11"
-          - sub_level: "170"
-            os_patch_level: "2025-01"
-          - sub_level: "178"
-            os_patch_level: "2025-03"
-          - sub_level: "180"
-            os_patch_level: "2025-05"
-          - sub_level: "185"
-            os_patch_level: "2025-07"
-          - sub_level: "189"
-            os_patch_level: "2025-09"
-          - sub_level: "194"
-            os_patch_level: "2025-12"
-          - sub_level: "X"
-            os_patch_level: "lts"
     uses: ./.github/workflows/build.yml
     secrets: inherit
     with:
@@ -266,7 +228,6 @@ jobs:
       custom_external_modules: ${{ inputs.custom_external_modules || '' }}
       upload_aux_artifacts: false
 
-  # 仅在直接触发时运行，从 main.yml 调用时跳过
   get-ksu-manager:
     if: ${{ !inputs.called_from_main }}
     uses: ./.github/workflows/get-manager.yml
