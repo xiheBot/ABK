@@ -1,4 +1,14 @@
-Trigger GKI build: Android 13, Kernel 5.15.123, Security Patch 2023-11
-Features: susfs + zram(enhanced+full) + bbg + ddk(lsm) + ntsync + networking + kpm + virtualization(678)
-ReSukiSU: stable branch
-Build Time: 2026-07-08
+TRIGGER: GKI Build for A13 5.15.123 (2023-11)
+=============================================
+KernelSU Variant:  ReSukiSU (stable)
+Features:
+  ✅ SUSFS
+  ✅ ZRAM (enhanced + full algo support)
+  ✅ BBG anti-factory-reset
+  ✅ DDK anti-factory-reset LSM
+  ✅ NTsync patch
+  ✅ Network enhancement (IPSet + BBR)
+  ✅ KPM
+  ✅ Virtualization (678)
+
+Build Time: 2026-07-08T10:30:00+08:00
