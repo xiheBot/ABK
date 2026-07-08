@@ -1,0 +1,52 @@
+name: "🔨 GKI A13 5.15.123 Build (Push Trigger)"
+
+permissions:
+  contents: write
+  actions: write
+
+on:
+  push:
+    branches: [build/gki-a13-5-15-123]
+    paths:
+      - 'trigger-build.txt'
+
+jobs:
+  build-kernel:
+    name: "5.15.123-2023-11"
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      android_version: "android13"
+      kernel_version: "5.15"
+      sub_level: "123"
+      os_patch_level: "2023-11"
+      ksu_variant: "ReSukiSU"
+      ksu_branch: "Stable(标准)"
+      custom_ref: ""
+      version: ""
+      build_time: ""
+      use_zram: true
+      use_bbg: true
+      use_ddk: true
+      use_ntsync: true
+      use_networking: true
+      use_kpm: true
+      use_rekernel: false
+      supp_op: false
+      enable_susfs: true
+      virtualization_support: "678"
+      zram_full_algo: true
+      zram_extra_algos: ""
+      kpm_password: ""
+      use_custom_external_modules: false
+      custom_external_modules: ""
+      upload_aux_artifacts: false
+
+  get-ksu-manager:
+    needs: build-kernel
+    uses: ./.github/workflows/get-manager.yml
+    secrets: inherit
+    with:
+      kernelsu_variant: "ReSukiSU"
+      ksu_branch: "Stable(标准)"
+      custom_ref: ""
